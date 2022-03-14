@@ -2,7 +2,7 @@
 
 namespace App\DAO\MySQL\GerenciadorDeLojas;
 
-class ProdutosDAO extends Conexao
+class ProdutosDAO extends Connection
 {
     public function __construct()
     {
