@@ -2,23 +2,37 @@
 
 namespace App\DAO\MySQL\GerenciadorDeLojas;
 
-class LojasDAO extends Connection
+use App\Models\MySQL\GerenciadorDeLojas\StoreModel;
+
+class StoriesDAO extends Connection
 {
     public function __construct()
     {
         parent::__construct();
     }
 
-    public function teste() 
+    public function getAllStories(): array
     {
-        $lojas = $this->pdo
-            ->query('SELECT * FROM lojas;')
-            ->fetchAll(\PDO::FETCH_ASSOC);
+        $stories = $this->pdo
+        ->query('SELECT id, nome, telefone, endereco FROM lojas;')
+        ->fetchAll(\PDO::FETCH_ASSOC);
 
-        
-        foreach($lojas as $loja) {
-            var_dump($loja);
-        }
-        die;
+        return $stories;
+    }
+
+    public function insertStore(StoreModel $storie): void
+    {
+        $stmt = $this->pdo
+        ->prepare('INSERT INTO lojas VALUES(
+            null, 
+            :nome,
+            :telefone,
+            :endereco
+            );');
+        $stmt->execute([
+          'nome' => $storie->getName(),
+          'telefone' => $storie->getTelephone(),
+          'endereco' => $storie->getAddress()
+        ]);
     }
 }

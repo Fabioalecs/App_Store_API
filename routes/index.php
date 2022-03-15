@@ -1,14 +1,23 @@
 <?php
 
 use App\Controllers\ProductController;
+use App\Controllers\StoreController;
 
 use function src\slimConfiguration;
 
 $app = new \Slim\App(slimConfiguration());
 
 
-$app->get('/', ProductController::class . ':getProducts');
+$app->get('/store', StoreController::class . ':getStore');
+$app->post('/store', StoreController::class . ':insertStore');
+$app->put('/store', StoreController::class . ':updateStore');
+$app->delete('/store', StoreController::class . ':deleteStore');
 
+
+$app->get('/product', ProductController::class . ':getProduct');
+$app->post('/product', ProductController::class . ':insertProduct');
+$app->put('/product', ProductController::class . ':updateProduct');
+$app->delete('/product', ProductController::class . ':deleteProduct');
 
 
 
