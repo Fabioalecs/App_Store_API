@@ -38,14 +38,34 @@ final class StoreController
     
     public function updateStore(Request $request, Response $response, array $args): Response 
     {
+        $data = $request->getParsedBody();
 
+        $storiesDAO = new StoriesDAO();
+        $store = new StoreModel(['id' => $args['id']]);
+        $store->setName($data['nome'])
+              ->setAddress($data['endereco'])
+              ->setTelephone($data['telefone']);
+        $storiesDAO->updateStore($store);
+
+        $response = $response->withJson([
+            'message' => 'Loja Alterada Com Sucesso!'
+        ]);
+
+       
 
         return $response;
     }
     
     public function deleteStore(Request $request, Response $response, array $args): Response 
     {
-        
+
+        $storiesDAO = new StoriesDAO();
+        $id = (int)$args['id'];
+        $storiesDAO->deleteStore($id);
+
+        $response = $response->withJson([
+            'message' => 'Loja Excluída Com Sucesso!'
+        ]);
 
         return $response;
     }

@@ -4,10 +4,12 @@ namespace App\Models\MySQL\GerenciadorDeLojas;
 
 final Class StoreModel 
 {
+
+    
     /**
      * @var int
      */
-
+    
     private $id;
     
     /**
@@ -25,7 +27,12 @@ final Class StoreModel
      * @var string
      */
     private $address; 
-
+    
+    
+    public function __construct(array $data = null)
+    {
+        $this->id = $data['id'];
+    }
 
     public function getId(): int
     {

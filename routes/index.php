@@ -15,8 +15,8 @@ $app->post('/login', AuthController::class . ':login');
 
 $app->get('/store', StoreController::class . ':getStore');
 $app->post('/store', StoreController::class . ':insertStore');
-$app->put('/store', StoreController::class . ':updateStore');
-$app->delete('/store', StoreController::class . ':deleteStore');
+$app->put('/store/{id}', StoreController::class . ':updateStore');
+$app->delete('/store/{id}', StoreController::class . ':deleteStore');
 
 
 $app->get('/product', ProductController::class . ':getProduct');
