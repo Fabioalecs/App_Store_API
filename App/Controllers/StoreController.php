@@ -58,7 +58,6 @@ final class StoreController
     
     public function deleteStore(Request $request, Response $response, array $args): Response 
     {
-
         $storiesDAO = new StoriesDAO();
         $id = (int)$args['id'];
         $storiesDAO->deleteStore($id);

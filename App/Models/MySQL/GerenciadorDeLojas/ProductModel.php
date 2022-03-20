@@ -2,7 +2,7 @@
 
 namespace App\Models\MySQL\GerenciadorDeLojas; 
 
-final Class StoreModel 
+final Class ProductModel 
 {
 
     /**
@@ -20,12 +20,12 @@ final Class StoreModel
      /**
      * @var string
      */
-    private $telephone;
+    private $price;
     
     /**
      * @var string
      */
-    private $address; 
+    private $amount; 
     
     
     public function __construct(array $data = null)
@@ -43,31 +43,31 @@ final Class StoreModel
         return $this->name;
     }
 
-    public function setName(string $name): StoreModel
+    public function setName(string $name): ProductModel
     {
         $this->name = $name;
         return $this;
     }
     
-    public function getTelephone(): string
+    public function getPrice(): string
     {
-        return $this->telephone;
+        return $this->price;
     }
 
-    public function setTelephone(string $telephone): StoreModel
+    public function setPrice(string $price): ProductModel
     {
-        $this->telephone = $telephone;
+        $this->price = $price;
         return $this;
     }
 
-    public function getAddress(): string
+    public function getAmount(): string
     {
-        return $this->address;
+        return $this->amount;
     }
 
-    public function setAddress(string $address): StoreModel
+    public function setAmount(string $amount): ProductModel
     {
-        $this->address = $address;
+        $this->amount = $amount;
         return $this;
     }
 
