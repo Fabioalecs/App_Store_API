@@ -20,8 +20,8 @@ $app->delete('/store/{id}', StoreController::class . ':deleteStore');
 
 
 $app->get('/product', ProductController::class . ':getProduct');
-$app->post('/product', ProductController::class . ':insertProduct');
-$app->put('/product', ProductController::class . ':updateProduct');
+$app->post('/product/{storeId}', ProductController::class . ':insertProduct');
+$app->put('/product/{id}', ProductController::class . ':updateProduct');
 $app->delete('/product', ProductController::class . ':deleteProduct');
 
 

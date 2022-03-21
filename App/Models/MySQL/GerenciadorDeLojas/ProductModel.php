@@ -10,6 +10,12 @@ final Class ProductModel
      */
     
     private $id;
+
+    /**
+     * @var int
+     */
+    
+    private $storeId;
     
     /**
      * @var string
@@ -30,12 +36,18 @@ final Class ProductModel
     
     public function __construct(array $data = null)
     {
-        $this->id = $data['id'];
+        $this->id = array_key_exists('id', $data) ? $data['id'] : null;
+        $this->storeId = array_key_exists('storeId', $data) ? $data['storeId'] : null;
     }
 
     public function getId(): int
     {
         return $this->id;
+    }
+   
+    public function getStoreId(): int
+    {
+        return $this->storeId;
     }
 
     public function getName(): string
