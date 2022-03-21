@@ -56,5 +56,12 @@ class ProductsDAO extends Connection
         ]);
     }
 
-    
+    public function deleteProduct(int $id): void
+    {
+        $stmt = $this->pdo
+            ->prepare('DELETE FROM produtos WHERE id = :id');
+        $stmt->execute([
+            'id' => $id
+        ]);
+    }
 }

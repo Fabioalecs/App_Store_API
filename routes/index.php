@@ -22,7 +22,7 @@ $app->delete('/store/{id}', StoreController::class . ':deleteStore');
 $app->get('/product', ProductController::class . ':getProduct');
 $app->post('/product/{storeId}', ProductController::class . ':insertProduct');
 $app->put('/product/{id}', ProductController::class . ':updateProduct');
-$app->delete('/product', ProductController::class . ':deleteProduct');
+$app->delete('/product/{id}', ProductController::class . ':deleteProduct');
 
 
 

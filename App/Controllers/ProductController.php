@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\DAO\MySQL\GerenciadorDeLojas\ProductsDAO;
+use App\DAO\MySQL\GerenciadorDeLojas\StoriesDAO;
 use App\Models\MySQL\GerenciadorDeLojas\ProductModel;
 use App\Models\MySQL\GerenciadorDeLojas\StoreModel;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -59,11 +60,16 @@ final class ProductController
 
     public function deleteProduct(Request $request, Response $response, array $args): Response
     {
-       
+       $productsDAO = new ProductsDAO();
+       $id = (int)$args['id'];
+       $productsDAO->deleteProduct($id);
 
-        return $response;
+       $response = $response->withJson([
+        'message' => 'Produto Excluído Com Sucesso!'
+       ]);
+
+       return $response;
     }
-
-
+    
 
 }
