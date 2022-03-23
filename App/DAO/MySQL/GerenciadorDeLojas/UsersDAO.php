@@ -11,7 +11,7 @@ class UsersDAO extends Connection
         parent::__construct();
     }
 
-    public function getUserByEmail(string $email): ?UserModel
+    public function getUserByEmail($email): ?UserModel
     {
         $stmt = $this->pdo
             ->prepare('SELECT 
@@ -22,9 +22,8 @@ class UsersDAO extends Connection
                 FROM usuarios
                 WHERE email = :email
             ');
-        $stmt->execute([
-            'email' => $email
-        ]);
+        $stmt->bindParam('email', $email);
+        $stmt->execute();
         $users = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         if(count($users) === 0)
         {
@@ -37,7 +36,5 @@ class UsersDAO extends Connection
             ->getId();
         
         return $user;
-            
-        
     }
 }

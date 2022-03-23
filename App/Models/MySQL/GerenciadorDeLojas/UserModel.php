@@ -24,7 +24,7 @@ final class UserModel
    */
   private $password;
 
-  public function __construct(array $data = null)
+  public function __construct(string $data = null)
   {
       $this->id = $data['id'];
   }
