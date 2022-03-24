@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\DAO\MySQL\GerenciadorDeLojas\TokensDAO;
 use App\DAO\MySQL\GerenciadorDeLojas\UsersDAO;
+use App\Models\MySQL\GerenciadorDeLojas\TokenModel;
 use DateTime;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -16,6 +18,7 @@ final class AuthController
 
         $email = $data['email'];
         $password = $data['senha'];
+        $expiredAt = $data['data_de_expiracao'];
 
         $usersDAO = new UsersDAO();
         $user = $usersDAO->getUserByEmail($email);
@@ -30,14 +33,13 @@ final class AuthController
             return $response->withStatus(401);
         }
 
-        $expiredDate = (new \DateTime())->modify('+2 days')
-        ->format('Y-m-d H:i:s');
+        echo $user->getId();
 
         $tokenPayload = [
             'sub' => $user->getId(),
             'name' => $user->getName(),
             'email' => $user->getEmail(),
-            'expired_at' => $expiredDate
+            'expired_at' => $expiredAt
         ];
 
         $token = JWT::encode($tokenPayload, getenv('JWT_SECRET_KEY'));
@@ -48,8 +50,20 @@ final class AuthController
 
         $refreshTokenPayload = JWT::encode($refreshTokenPayload, getenv('JWT_SECRET_KEY'));
 
-        var_dump($token);
-        
+        $tokenModel = new TokenModel($user->getId());
+        $tokenModel->setExpiredAt($expiredAt)
+                   ->setRefreshToken($refreshTokenPayload)
+                   ->setToken($token)
+                   ->getUserId();
+
+        $tokenDAO = new TokensDAO();
+        $tokenDAO->createToken($tokenModel);
+
+        $response = $response->withJson([
+            "token" => $token,
+            "refresh_token" => $refreshTokenPayload
+        ]);
+
         return $response;
     }
 

@@ -25,5 +25,4 @@ $app->put('/product/{id}', ProductController::class . ':updateProduct');
 $app->delete('/product/{id}', ProductController::class . ':deleteProduct');
 
 
-
 $app->run();
